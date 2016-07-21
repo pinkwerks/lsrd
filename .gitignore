@@ -9,6 +9,8 @@
 sysinfo.txt
 *.stackdump
 
+UWP/
+
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
