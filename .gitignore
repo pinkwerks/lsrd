@@ -9,8 +9,6 @@
 sysinfo.txt
 *.stackdump
 
-UWP/
-
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
@@ -36,3 +34,7 @@ Icon?
 ehthumbs.db
 [Tt]humbs.db
 [Dd]esktop.ini
+
+Assets/Media/
+UWP/
+Assets/Media.meta
