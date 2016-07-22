@@ -9,8 +9,6 @@
 sysinfo.txt
 *.stackdump
 
-UWP/
-
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
@@ -37,7 +35,11 @@ ehthumbs.db
 [Tt]humbs.db
 [Dd]esktop.ini
 
+<<<<<<< HEAD
 Assets/HoloToolkit/
+=======
+>>>>>>> origin/master
 Assets/Media/
+UWP/
 Assets/Media.meta
 
