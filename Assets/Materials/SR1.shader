@@ -4,7 +4,7 @@
 // Copyright (C) Microsoft. All rights reserved.
 //
 
-Shader "Surface Reconstruction/LSRD"
+Shader "Surface Reconstruction/SR1"
 {
     Properties
     {
@@ -51,7 +51,8 @@ Shader "Surface Reconstruction/LSRD"
             Offset 50, 100
 
             CGPROGRAM
-            #pragma vertex vert
+
+			#pragma vertex vert
             #pragma geometry geom
             #pragma fragment frag
             #include "UnityCG.cginc"
@@ -141,9 +142,16 @@ Shader "Surface Reconstruction/LSRD"
                 //fixed2 texcoord : TEXCOORD6; // uv coords
             };
 
+
             [maxvertexcount(6)]
             void geom(triangle v2g i[3], inout TriangleStream<g2f> triStream)
             {
+
+				fixed3 barys[3] = { 
+					fixed3(1, 0, 0), 
+					fixed3(0, 1, 0), 
+					fixed3(0, 0, 1) 
+				};
 
                 g2f o;
 
@@ -177,9 +185,7 @@ Shader "Surface Reconstruction/LSRD"
                         o.viewPos = i[idx].viewPos;
 
                         // barycentric
-                        o.bary.x = idx == 0;
-                        o.bary.y = idx == 1;
-                        o.bary.z = idx == 2;
+                        o.bary = barys[idx];
 
                         //o.texcoord = i[idx].texcoord;
                         
@@ -347,3 +353,4 @@ Shader "Surface Reconstruction/LSRD"
     }
         FallBack "Diffuse"
 }
+

@@ -106,7 +106,7 @@ public class Kontroller : MonoBehaviour
 		#else
 		// Runtime
 		// assign a random material to the spatial mapping
-		SMCam.GetComponent<SpatialMappingRenderer>().RenderingMaterial = chosenMaterial;
+		SMCam.GetComponent<SpatialMappingRenderer>().RenderingMaterial = SpatialMappingMaterial;
 		#endif
 
 	}
