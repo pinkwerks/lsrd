@@ -7,21 +7,21 @@ public class Kontroller : MonoBehaviour
     public Material SpatialMappingMaterial;
     public GameObject Oscillator;
     public AudioSource tapAudio;
-    UnityEngine.XR.WSA.Input.GestureRecognizer recognizer;
-    public GameObject debugSR;
+    //public GameObject debugSR;
     public Material[] Materials;
     public float speed;
     public float minspeed = .1f;
     public float maxspeed = 10.0f;
     public float magnitude = 20.0f;
-    public GameObject SMCam;
+    //public GameObject SMCam;
     //public bool hideDebugSR;
     //public int CurrentMaterialIndex = 0;
     public bool randomizeOnPlay = true;
 
-    bool run = true;
-    bool RunPauseSpatialMappingUpdate = true;
+    //bool run = true;
+    //bool RunPauseSpatialMappingUpdate = true;
 
+    UnityEngine.XR.WSA.Input.GestureRecognizer recognizer;
     int Epicenter;
     int radius;
     int wavea;
@@ -38,27 +38,27 @@ public class Kontroller : MonoBehaviour
 
     Animator OscAnim;
 
-    IEnumerator WaitAndPrint(float seconds, bool repeat)
-    {
-        while (run)
-        {
-            yield return new WaitForSeconds(seconds);
-            Debug.Log("WaitAndPrint Spatial Mapping Update");
-            Debug.Log(Time.time);
-            if (!repeat)
-                run = false;
-        }
-    }
+    //IEnumerator WaitAndPrint(float seconds, bool repeat)
+    //{
+    //    while (run)
+    //    {
+    //        yield return new WaitForSeconds(seconds);
+    //        Debug.Log("WaitAndPrint Spatial Mapping Update");
+    //        Debug.Log(Time.time);
+    //        if (!repeat)
+    //            run = false;
+    //    }
+    //}
 
-    IEnumerator PauseSpatialMappingUpdate(float seconds)
-    {
-        // TODO XXX
-        while (RunPauseSpatialMappingUpdate)
-        {
-            yield return new WaitForSeconds(seconds);
-            run = RunPauseSpatialMappingUpdate;
-        }
-    }
+    //IEnumerator PauseSpatialMappingUpdate(float seconds)
+    //{
+    //    // TODO XXX
+    //    while (RunPauseSpatialMappingUpdate)
+    //    {
+    //        yield return new WaitForSeconds(seconds);
+    //        run = RunPauseSpatialMappingUpdate;
+    //    }
+    //}
 
     void Start()
     {
@@ -75,9 +75,12 @@ public class Kontroller : MonoBehaviour
 
         // Set up a GestureRecognizer to detect Select gestures.
         recognizer = new UnityEngine.XR.WSA.Input.GestureRecognizer();
+
         recognizer.TappedEvent += OnSelect;
+        recognizer.Tapped += OnTapped; 
 
         recognizer.StartCapturingGestures();
+         
 
         // reset animations
         OscAnim = Oscillator.GetComponent<Animator>();
@@ -89,8 +92,8 @@ public class Kontroller : MonoBehaviour
 
 #else
         // help make sure we don't show our debugging SR in the build.
-        debugSR.SetActive(false);
-        randomizeOnPlay = true;
+        //debugSR.SetActive(false);
+        //randomizeOnPlay = true;
 #endif
 
         //StartCoroutine(WaitAndPrint(2, false));
@@ -102,19 +105,20 @@ public class Kontroller : MonoBehaviour
 
     }
 
+
     public void UpdateMeshRendererMaterial()
     {
 #if UNITY_EDITOR
         // update the material in the editor when in unity
-        var meshRenderers = debugSR.GetComponentsInChildren<MeshRenderer>();
-        foreach (MeshRenderer m in meshRenderers)
-        {
-            m.sharedMaterial = SpatialMappingMaterial;
-        }
+        //var meshRenderers = debugSR.GetComponentsInChildren<MeshRenderer>();
+        //foreach (MeshRenderer m in meshRenderers)
+        //{
+        //    m.sharedMaterial = SpatialMappingMaterial;
+        //}
 #else
 		// Runtime
 		// assign a random material to the spatial mapping
-		SMCam.GetComponent<SpatialMappingManager>().SurfaceMaterial = SpatialMappingMaterial;
+		//SMCam.GetComponent<SpatialMappingManager>().SurfaceMaterial = SpatialMappingMaterial;
 #endif
     }
 
@@ -125,6 +129,11 @@ public class Kontroller : MonoBehaviour
         SpatialMappingMaterial = chosenMaterial;
 
         UpdateMeshRendererMaterial();
+    }
+
+    private void OnTapped(UnityEngine.XR.WSA.Input.TappedEventArgs obj)
+    {
+        Debug.Log("OnTapped");
     }
 
     // Called by GazeGestureManager when the user performs a Select gesture
@@ -148,7 +157,7 @@ public class Kontroller : MonoBehaviour
 
             SpatialMappingMaterial.SetVector(Epicenter, clickPosition);
 
-            tapAudio.transform.position = hitInfo.point;
+            tapAudio.transform.position = hitInfo.point; 
             tapAudio.Play();
 
             SpatialMappingMaterial.SetFloat(wavea, Random.Range(2f, 10f));
@@ -176,9 +185,9 @@ public class Kontroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Use the oscilator values
+        // Use the gameobject values
         // this is wacky
-        // i'm hijacking the oscillator's transform x position as an animated variable
+        // i'm hijacking the gameobjects's transform x position as an animated variable
         // we don't render the oscillator game object
         // i record the changing values in that transform for reasons below
         // q1: how is transform.x animated? 
@@ -192,14 +201,14 @@ public class Kontroller : MonoBehaviour
 
     // UWP thing
     // VOODOO see if fixes SR not coming up between launches sometimes
-    void OnApplicationPause(bool pause)
-    {
-        Application.Quit();
-    }
+    //void OnApplicationPause(bool pause)
+    //{
+    //    Application.Quit();
+    //}
 
-    void OnDisable()
-    {
-        run = false;
-    }
+    //void OnDisable()
+    //{
+    //    run = false;
+    //}
 
 }

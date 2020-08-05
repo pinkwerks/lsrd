@@ -1,15 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class MatrixRotator : MonoBehaviour {
-
+public class MatrixRotator : MonoBehaviour
+{
     public float rotateSpeed = 30f;
     public Vector3 rotation;
-
-    // Use this for initialization
-    void Start () {
-	
-	}
 
     // Update is called once per frame
     public void Update()
