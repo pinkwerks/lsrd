@@ -74,24 +74,7 @@ Shader "Surface Reconstruction/Matrix Dot"
 
             sampler2D _MainTex;
 
-			fixed linstep(fixed a, fixed b, fixed x)
-			{
-				return saturate((x - a) / (b - a));
-			}
-
-            fixed3 palette(fixed t, fixed3 a, fixed3 b, fixed3 c, fixed3 d)
-            {
-                return a + b * cos(6.28318 * (c * t + d));
-            }
-
-			fixed3 squaredDistance(fixed3 a, fixed3 b)
-			{
-				return a.x * b.x + a.y * b.y + a.z * b.z;
-			}
-
-			half rand(half2 co) {
-				return frac(sin(dot(co.xy, half2(12.9898, 78.233))) * 43758.5453);
-			}
+			#include "Util.cginc"
 
             struct v2g
             {
