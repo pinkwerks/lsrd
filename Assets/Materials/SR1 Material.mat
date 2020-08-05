@@ -11,7 +11,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: 3093d0d59ed7f414c9bc0e2c35f3fad5, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2000
   stringTagMap: {}
@@ -29,8 +29,8 @@ Material:
     - _EdgeWidth: 0.171
     - _Freq: 15.5
     - _NormalMix: 0
-    - _NormalMixB: 1
-    - _Radius: 3.59
+    - _NormalMixB: 0.42
+    - _Radius: 1.9049729
     - _WaveOffset: -0.106
     - _WaveSizeA: 2.24
     - _WaveSizeB: 4.98
