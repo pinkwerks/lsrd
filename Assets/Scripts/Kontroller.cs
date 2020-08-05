@@ -1,14 +1,13 @@
-﻿using HoloToolkit.Unity;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.VR.WSA.Input;
+
 
 public class Kontroller : MonoBehaviour
 {
     public Material SpatialMappingMaterial;
     public GameObject Oscillator;
     public AudioSource tapAudio;
-    GestureRecognizer recognizer;
+    UnityEngine.XR.WSA.Input.GestureRecognizer recognizer;
     public GameObject debugSR;
     public Material[] Materials;
     public float speed;
@@ -75,7 +74,7 @@ public class Kontroller : MonoBehaviour
         reset = Animator.StringToHash("Reset");
 
         // Set up a GestureRecognizer to detect Select gestures.
-        recognizer = new GestureRecognizer();
+        recognizer = new UnityEngine.XR.WSA.Input.GestureRecognizer();
         recognizer.TappedEvent += OnSelect;
 
         recognizer.StartCapturingGestures();
@@ -129,7 +128,7 @@ public class Kontroller : MonoBehaviour
     }
 
     // Called by GazeGestureManager when the user performs a Select gesture
-    void OnSelect(InteractionSourceKind source, int tapCount, Ray headRay)
+    void OnSelect(UnityEngine.XR.WSA.Input.InteractionSourceKind source, int tapCount, Ray headRay)
     {
         RaycastHit hitInfo;
 

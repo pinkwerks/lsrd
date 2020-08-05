@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 // Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
 
 //
@@ -87,7 +89,7 @@ Shader "Surface Reconstruction/Matrix Dot"
             v2g vert(appdata_base v)
             {
                 v2g o;
-                o.viewPos = mul(UNITY_MATRIX_MVP, v.vertex);
+                o.viewPos = UnityObjectToClipPos(v.vertex);
 				o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
 				o.texcoord = v.texcoord;
 
@@ -140,7 +142,7 @@ Shader "Surface Reconstruction/Matrix Dot"
 
 					o.worldPos = newPos.xyz;
 
-					o.viewPos = mul(UNITY_MATRIX_MVP, mul(unity_WorldToObject, float4(newPos, 1)));
+					o.viewPos = UnityObjectToClipPos(mul(unity_WorldToObject, float4(newPos, 1)));
 
 					o.texcoord = i[idx].texcoord;
 

@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 // Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
 
 //
@@ -61,14 +63,14 @@ Shader "Spatial Mapping/Spatial Mappping Tap"
 			{
 				v2g o;
 
-				o.viewPos = mul(UNITY_MATRIX_MVP, v.vertex);
+				o.viewPos = UnityObjectToClipPos(v.vertex);
 				float4 worldPos = mul(unity_ObjectToWorld, v.vertex);
 
 				half distToCenter = distance(_Center, worldPos.xyz);
 				
 				half pulse = cubicPulse(_Radius, _PulseWidth, distToCenter);
 
-				o.viewPos = mul(UNITY_MATRIX_MVP, worldPos);
+				o.viewPos = UnityObjectToClipPos(worldPos);
 
 				o.color = pulse * _PulseColor;
 

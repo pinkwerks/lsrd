@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 // Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
 
 Shader "Surface Reconstruction/SR1"
@@ -76,7 +78,7 @@ Shader "Surface Reconstruction/SR1"
 			{
 				v2g o;
 
-				o.viewPos = mul(UNITY_MATRIX_MVP, v.vertex);
+				o.viewPos = UnityObjectToClipPos(v.vertex);
 				o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
 				fixed dist = distance(o.worldPos, _Center);
 				fixed d = _Radius - dist;
@@ -183,7 +185,7 @@ Shader "Surface Reconstruction/SR1"
 							triCenter - N * _WaveOffset, shrinkMask);
 
 						// update new vertex position
-						o.viewPos = mul(UNITY_MATRIX_MVP, mul(unity_WorldToObject, float4(newPos, 1)));
+						o.viewPos = UnityObjectToClipPos(mul(unity_WorldToObject, float4(newPos, 1)));
 
 						o.N = N;
 						o.wave = i[idx].wave;

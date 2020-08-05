@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.VR.WSA;
+
 
 public class SpatialMapping : MonoBehaviour
 {
@@ -21,11 +21,11 @@ public class SpatialMapping : MonoBehaviour
     // The volume of space the SMSurfaceObserver should observe.
     private Vector3 BoundingVolume = Vector3.one * 10.0f;
     // Our Spatial Mapping Surface Observer object
-    private SurfaceObserver Observer;
+    private UnityEngine.XR.WSA.SurfaceObserver Observer;
     // A dictionary of surfaces (Meshes) that our Surface Observer knows about.
     private Dictionary<int, GameObject> surfaces;
     // Queue of SurfaceData information. Enqueued in OnSurfaceChanged; Dequeued in Update.
-    private Queue<SurfaceData> surfaceDataQueue;
+    private Queue<UnityEngine.XR.WSA.SurfaceData> surfaceDataQueue;
     // If true, Spatial Mapping is enabled. 
     private bool mappingEnabled = true;
 
@@ -46,10 +46,10 @@ public class SpatialMapping : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Observer = new SurfaceObserver();
+        Observer = new UnityEngine.XR.WSA.SurfaceObserver();
         Observer.SetVolumeAsAxisAlignedBox(Vector3.zero, BoundingVolume);
         surfaces = new Dictionary<int, GameObject>();
-        surfaceDataQueue = new Queue<SurfaceData>();
+        surfaceDataQueue = new Queue<UnityEngine.XR.WSA.SurfaceData>();
         UpdateSurfaceObserver();
     }
 
@@ -62,14 +62,14 @@ public class SpatialMapping : MonoBehaviour
         }
     }
 
-    private void Observer_OnSurfaceChanged(SurfaceId surfaceId, SurfaceChange changeType, Bounds bounds, System.DateTime updateTime)
+    private void Observer_OnSurfaceChanged(UnityEngine.XR.WSA.SurfaceId surfaceId, UnityEngine.XR.WSA.SurfaceChange changeType, Bounds bounds, System.DateTime updateTime)
     {
         GameObject surface;
 
         switch (changeType)
         {
-            case SurfaceChange.Updated:
-            case SurfaceChange.Added:
+            case UnityEngine.XR.WSA.SurfaceChange.Updated:
+            case UnityEngine.XR.WSA.SurfaceChange.Added:
                 if (!surfaces.TryGetValue(surfaceId.handle, out surface))
                 {
                     // If we are adding a new surface, construct a GameObject
@@ -79,7 +79,7 @@ public class SpatialMapping : MonoBehaviour
                     surface.AddComponent<MeshFilter>();
                     surface.AddComponent<MeshRenderer>().sharedMaterial = DrawMaterial;
                     surface.AddComponent<MeshCollider>();
-                    surface.AddComponent<WorldAnchor>();
+                    surface.AddComponent<UnityEngine.XR.WSA.WorldAnchor>();
                     // Set the layer that this SpatialMapping surface is a part of
                     surface.layer = PhysicsLayer;
                     // Add the surface to our dictionary of known surfaces so
@@ -87,17 +87,17 @@ public class SpatialMapping : MonoBehaviour
                     surfaces[surfaceId.handle] = surface;
                 }
 
-                SurfaceData smsd = new SurfaceData(
+                UnityEngine.XR.WSA.SurfaceData smsd = new UnityEngine.XR.WSA.SurfaceData(
                     surfaceId,
                     surface.GetComponent<MeshFilter>(),
-                    surface.GetComponent<WorldAnchor>(),
+                    surface.GetComponent<UnityEngine.XR.WSA.WorldAnchor>(),
                     surface.GetComponent<MeshCollider>(),
                     TrianglesPerCubicMeter,
                     true);
                 surfaceDataQueue.Enqueue(smsd);
                 break;
 
-            case SurfaceChange.Removed:
+            case UnityEngine.XR.WSA.SurfaceChange.Removed:
                 if (surfaces.TryGetValue(surfaceId.handle, out surface))
                 {
                     surfaces.Remove(surfaceId.handle);
@@ -118,7 +118,7 @@ public class SpatialMapping : MonoBehaviour
 
             if (surfaceWorkOutstanding == false && surfaceDataQueue.Count > 0)
             {
-                SurfaceData smsd = surfaceDataQueue.Dequeue();
+                UnityEngine.XR.WSA.SurfaceData smsd = surfaceDataQueue.Dequeue();
                 surfaceWorkOutstanding = Observer.RequestMeshAsync(smsd, Observer_OnDataReady);
             }
         }
@@ -130,7 +130,7 @@ public class SpatialMapping : MonoBehaviour
     /// <param name="cookedData">Struct containing output data.</param>
     /// <param name="outputWritten">Set to true if output has been written.</param>
     /// <param name="elapsedCookTimeSeconds">Seconds between mesh cook request and propagation of this event.</param>
-    private void Observer_OnDataReady(SurfaceData bakedData, bool outputWritten, float elapsedBakeTimeSeconds)
+    private void Observer_OnDataReady(UnityEngine.XR.WSA.SurfaceData bakedData, bool outputWritten, float elapsedBakeTimeSeconds)
     {
         surfaceWorkOutstanding = false;
     }

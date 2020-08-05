@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 // Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
 
 //
@@ -93,7 +95,7 @@ Shader "Surface Reconstruction/Curl"
 				float4 newPos = lerp(worldPos, rotatedPos, wave);
 
 				// Populate the vertex values
-				o.viewPos = mul(UNITY_MATRIX_MVP, newPos);
+				o.viewPos = UnityObjectToClipPos(newPos);
 				o.worldPos = newPos.xyz;
 				o.N = v.normal;
 				o.color = half4(colorWave(wave), 1) * wave;
@@ -170,7 +172,7 @@ Shader "Surface Reconstruction/Curl"
 								triCenter - i[idx].N * _Offset, shrinkMask);
 
 							// update new vertex position
-							o.viewPos = mul(UNITY_MATRIX_MVP, mul(unity_WorldToObject, float4(newPos, 1)));
+							o.viewPos = UnityObjectToClipPos(mul(unity_WorldToObject, float4(newPos, 1)));
 
 							o.N = i[idx].N;
 							o.worldPos = i[idx].worldPos;

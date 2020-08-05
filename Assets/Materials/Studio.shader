@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 // Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 
 Shader "Studio"
@@ -79,7 +81,7 @@ Shader "Studio"
 				v2f o;
 				// transform position to clip space
 				// (multiply with model*view*projection matrix)
-				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.vertexWS = mul(unity_ObjectToWorld, v.vertex);
 				// just pass the texture coordinate
 				o.uv = v.uv;
