@@ -24,31 +24,49 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BaryThresh: 0.643
+    - _BaryThresh: 0.192
+    - _CenterMaskEnd: 1
+    - _CenterMaskStart: 0
     - _Displace: 1
     - _EdgeWidth: 0.171
     - _Freq: 15.5
-    - _NormalMix: 0
-    - _NormalMixB: 0.42
-    - _Radius: 1.9049729
-    - _WaveOffset: -0.106
-    - _WaveSizeA: 2.24
-    - _WaveSizeB: 4.98
-    - _WaveSizeC: 8.66
+    - _Laydown: 0.5
+    - _NormalMix: 0.034
+    - _NormalMixB: 0.45908493
+    - _Radius: 1.89
+    - _WaveOffset: 0.1
+    - _WaveSizeA: 7.028658
+    - _WaveSizeB: 4.5743766
+    - _WaveSizeC: 5.7253222
+    - _WaveTightnessA: 15
+    - _WaveTightnessB: 1.8
+    - _WaveTightnessC: 7
     - _WaveWidth: 1.4
-    - _WaveWidthB: 0
+    - _WaveWidthB: -3.56
+    - _WaveWidthBack: 1
+    - _WaveWidthFront: 0.82
     - _Width: 0.376
     - _WireWidth: 0.151
     m_Colors:
-    - _Center: {r: 0, g: 0, b: 0, a: -1}
+    - _BottomSpotColorA: {r: 1, g: 1, b: 0, a: 1}
+    - _BottomWaveColor: {r: 0.0627451, g: 0.0627451, b: 0.0627451, a: 1}
+    - _Center: {r: 0.03378985, g: -0.020571567, b: 0.80266535, a: 0}
     - _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
-    - _HazeA: {r: 0.1, g: 0.1, b: 0, a: 1}
-    - _HazeB: {r: 0.1, g: 0, b: 0.1, a: 1}
+    - _HazeA: {r: 0.6792453, g: 0.6706479, b: 0.16340333, a: 1}
+    - _HazeB: {r: 0.7924528, g: 0.13082945, b: 0.7924528, a: 1}
     - _KnobAmp: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _KnobFreq: {r: 1, g: 1, b: 1, a: 1}
     - _KnobOffset: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _KnobPhase: {r: 0.33, g: 0.67, b: 1, a: 1}
-    - _SpotColorA: {r: 1, g: 1, b: 1, a: 1}
-    - _SpotColorB: {r: 0, g: 0, b: 0, a: 1}
+    - _SpotColorA: {r: 0.8113208, g: 0.14159843, b: 0.14159843, a: 1}
+    - _SpotColorB: {r: 1, g: 1, b: 1, a: 1}
+    - _SpotColorC: {r: 0, g: 0.26699018, b: 1, a: 1}
+    - _WaveAColor: {r: 0.3301887, g: 0.3301887, b: 0.076317206, a: 1}
+    - _WaveBColor: {r: 0.09999997, g: 0, b: 0.09999997, a: 1}
     - _WaveColor: {r: 1, g: 1, b: 1, a: 1}
+    - _WaveColorA: {r: 0.7169812, g: 0.7169812, b: 0.19953722, a: 1}
+    - _WaveColorB: {r: 0.19001423, g: 0.3565098, b: 0.6603774, a: 1}
+    - _WaveColorBottom: {r: 0.122859426, g: 0, b: 0.764151, a: 1}
+    - _WaveColorC: {r: 0.735849, g: 0.13536847, b: 0.735849, a: 1}
+    - _WaveColorTop: {r: 0.09999997, g: 0, b: 0.09999997, a: 1}
     - _WireColor: {r: 1, g: 1, b: 1, a: 1}

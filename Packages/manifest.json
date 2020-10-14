@@ -1,6 +1,16 @@
 {
+  "scopedRegistries": [
+    {
+      "name": "Microsoft Mixed Reality",
+      "url": "https://pkgs.dev.azure.com/aipmr/MixedReality-Unity-Packages/_packaging/Unity-packages/npm/registry/",
+      "scopes": [
+        "com.microsoft.mixedreality",
+        "com.microsoft.spatialaudio"
+      ]
+    }
+  ],
   "dependencies": {
-    "com.unity.textmeshpro": "2.0.1",
+    "com.unity.textmeshpro": "2.1.1",
     "com.unity.ugui": "1.0.0",
     "com.unity.xr.windowsmr.metro": "4.2.3",
     "com.unity.modules.ai": "1.0.0",
@@ -33,6 +43,9 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0"
+    "com.unity.modules.xr": "1.0.0",
+    "com.microsoft.mixedreality.toolkit.foundation": "2.5.0",
+    "com.microsoft.mixedreality.toolkit.tools": "2.5.0",
+    "com.microsoft.mixedreality.toolkit.examples": "2.5.0"
   }
 }

@@ -193,7 +193,7 @@ Shader "Surface Reconstruction/Curl"
 
 					// add some FX to localize the tap
 					fixed d = _Radius - toCenterDist;
-					fixed3 rings = impulse(5, (d - .05));
+					fixed3 rings = expImpulse((d - .05), 5);
 					outColor.rgb += rings;
 
 					outColor.rgb = i.color.rgb;

@@ -20,8 +20,9 @@ MonoBehaviour:
   updateInterval: 3.5
   meshPhysicsLayer: 31
   levelOfDetail: 2
-  trianglesPerCubicMeter: 0
+  trianglesPerCubicMeter: 2000
   recalculateNormals: 0
   displayOption: 1
   visibleMaterial: {fileID: 2100000, guid: 9afd3f583290e224b959c2f2af5d4e37, type: 2}
   occlusionMaterial: {fileID: 2100000, guid: a809c7ea182b699409443d46d5b42435, type: 2}
+  physicsMaterial: {fileID: 0}

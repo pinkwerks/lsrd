@@ -1,25 +1,19 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
+using Microsoft.MixedReality.Toolkit.Input;
 
 public class Kontroller : MonoBehaviour
 {
     public Material SpatialMappingMaterial;
     public GameObject Oscillator;
     public AudioSource tapAudio;
-    //public GameObject debugSR;
     public Material[] Materials;
     public float speed;
     public float minspeed = .1f;
     public float maxspeed = 10.0f;
     public float magnitude = 20.0f;
-    //public GameObject SMCam;
-    //public bool hideDebugSR;
-    //public int CurrentMaterialIndex = 0;
     public bool randomizeOnPlay = true;
-
-    //bool run = true;
-    //bool RunPauseSpatialMappingUpdate = true;
 
     UnityEngine.XR.WSA.Input.GestureRecognizer recognizer;
     int Epicenter;
@@ -30,37 +24,9 @@ public class Kontroller : MonoBehaviour
     int reset;
     int normalmix;
     int normalmixb;
-    //int wavewback;
-    //int wavewfront;
-    //int waveoffset;
-
-    //float lastHitTime;
-
     Animator OscAnim;
 
-    //IEnumerator WaitAndPrint(float seconds, bool repeat)
-    //{
-    //    while (run)
-    //    {
-    //        yield return new WaitForSeconds(seconds);
-    //        Debug.Log("WaitAndPrint Spatial Mapping Update");
-    //        Debug.Log(Time.time);
-    //        if (!repeat)
-    //            run = false;
-    //    }
-    //}
-
-    //IEnumerator PauseSpatialMappingUpdate(float seconds)
-    //{
-    //    // TODO XXX
-    //    while (RunPauseSpatialMappingUpdate)
-    //    {
-    //        yield return new WaitForSeconds(seconds);
-    //        run = RunPauseSpatialMappingUpdate;
-    //    }
-    //}
-
-    void Start()
+    void OnEnable()
     {
         Epicenter = Shader.PropertyToID("_Center");
         radius = Shader.PropertyToID("_Radius");
@@ -73,38 +39,21 @@ public class Kontroller : MonoBehaviour
 
         reset = Animator.StringToHash("Reset");
 
-        // Set up a GestureRecognizer to detect Select gestures.
-        recognizer = new UnityEngine.XR.WSA.Input.GestureRecognizer();
-
-        recognizer.TappedEvent += OnSelect;
-        recognizer.Tapped += OnTapped; 
-
-        recognizer.StartCapturingGestures();
-         
-
         // reset animations
         OscAnim = Oscillator.GetComponent<Animator>();
 
-#if UNITY_EDITOR
         OscAnim.SetTrigger(reset);
         OscAnim.speed = 1.0f;
         SpatialMappingMaterial.SetFloat(normalmixb, .420f);
 
-#else
-        // help make sure we don't show our debugging SR in the build.
-        //debugSR.SetActive(false);
-        //randomizeOnPlay = true;
-#endif
+        SpatialMappingMaterial.SetVector(Epicenter, Vector3.zero);
 
-        //StartCoroutine(WaitAndPrint(2, false));
 
         if (randomizeOnPlay)
         {
             SwapShaders();
         }
-
     }
-
 
     public void UpdateMeshRendererMaterial()
     {
@@ -131,57 +80,6 @@ public class Kontroller : MonoBehaviour
         UpdateMeshRendererMaterial();
     }
 
-    private void OnTapped(UnityEngine.XR.WSA.Input.TappedEventArgs obj)
-    {
-        Debug.Log("OnTapped");
-    }
-
-    // Called by GazeGestureManager when the user performs a Select gesture
-    void OnSelect(UnityEngine.XR.WSA.Input.InteractionSourceKind source, int tapCount, Ray headRay)
-    {
-        RaycastHit hitInfo;
-
-        if (Physics.Raycast(headRay, out hitInfo, 30.0f))
-        {
-            // Set the overall pace of the effect
-            speed = Random.Range(minspeed, maxspeed);
-
-            OscAnim.speed = speed;
-
-            // tweak audio accordingly
-            tapAudio.pitch = speed;
-
-            var clickPosition = new Vector4(hitInfo.point.x, hitInfo.point.y, hitInfo.point.z, 0);
-
-            SwapShaders();
-
-            SpatialMappingMaterial.SetVector(Epicenter, clickPosition);
-
-            tapAudio.transform.position = hitInfo.point; 
-            tapAudio.Play();
-
-            SpatialMappingMaterial.SetFloat(wavea, Random.Range(2f, 10f));
-            SpatialMappingMaterial.SetFloat(waveb, Random.Range(2f, 10f));
-            SpatialMappingMaterial.SetFloat(wavec, Random.Range(2f, 10f));
-
-            // SRMat.SetFloat(normalmix, Random.Range(0, 1));
-            SpatialMappingMaterial.SetFloat(normalmixb, Random.Range(0f, 1f));
-
-            OscAnim.SetTrigger(reset);
-
-            // pause the spatial mapping update for awhile
-            // the animation loops, we just wanted to avoid
-            // swapping artifacts for a few seconds while
-            // the effect is close
-
-            // TODO
-
-            //StartCoroutine(PauseSpatialMappingUpdate(1));
-
-
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -199,6 +97,42 @@ public class Kontroller : MonoBehaviour
         SpatialMappingMaterial.SetFloat(radius, Oscillator.transform.position.x * magnitude);
     }
 
+    public void OnPointerClicked(MixedRealityPointerEventData eventData)
+    {
+        // Set the overall pace of the effect
+        speed = Random.Range(minspeed, maxspeed);
+
+        OscAnim.speed = speed;
+
+        // tweak audio accordingly
+        tapAudio.pitch = speed;
+
+        //SwapShaders();
+
+        SpatialMappingMaterial.SetVector(Epicenter, eventData.Pointer.BaseCursor.Position);
+
+        tapAudio.transform.position = eventData.Pointer.BaseCursor.Position;
+        tapAudio.Play();
+
+        SpatialMappingMaterial.SetFloat(wavea, Random.Range(2f, 10f));
+        SpatialMappingMaterial.SetFloat(waveb, Random.Range(2f, 10f));
+        SpatialMappingMaterial.SetFloat(wavec, Random.Range(2f, 10f));
+
+        // SRMat.SetFloat(normalmix, Random.Range(0, 1));
+        SpatialMappingMaterial.SetFloat(normalmixb, Random.Range(0f, 1f));
+
+        OscAnim.SetTrigger(reset);
+
+        // pause the spatial mapping update for awhile
+        // the animation loops, we just wanted to avoid
+        // swapping artifacts for a few seconds while
+        // the effect is close
+
+        // TODO
+
+        //StartCoroutine(PauseSpatialMappingUpdate(1));
+    }
+
     // UWP thing
     // VOODOO see if fixes SR not coming up between launches sometimes
     //void OnApplicationPause(bool pause)
@@ -210,5 +144,4 @@ public class Kontroller : MonoBehaviour
     //{
     //    run = false;
     //}
-
 }
