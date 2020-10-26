@@ -131,10 +131,9 @@ GameObject:
   m_Component:
   - component: {fileID: 222748433}
   - component: {fileID: 222748432}
-  - component: {fileID: 222748435}
   - component: {fileID: 222748434}
   m_Layer: 0
-  m_Name: Kontroller
+  m_Name: Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,22 +148,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 222748431}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0822cab40cfc8f44693cf6e9709a0c64, type: 3}
+  m_Script: {fileID: 11500000, guid: 34e324c653cdad442adc9cec80f0692a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SpatialMappingMaterial: {fileID: 2100000, guid: 9afd3f583290e224b959c2f2af5d4e37,
     type: 2}
   Oscillator: {fileID: 1453826518}
   tapAudio: {fileID: 1672595102}
-  Materials:
-  - {fileID: 2100000, guid: 9afd3f583290e224b959c2f2af5d4e37, type: 2}
-  - {fileID: 2100000, guid: 8c69ae539f0efa541b14451f8415befd, type: 2}
-  - {fileID: 2100000, guid: 2fd46ae06cca8bb4291e1f893d616482, type: 2}
+  Materials: []
   speed: 1
   minspeed: 0.1
-  maxspeed: 0.5
+  maxspeed: 1
   magnitude: 10
-  randomizeOnPlay: 0
+  RandomShaderOnEnable: 0
 --- !u!4 &222748433
 Transform:
   m_ObjectHideFlags: 0
@@ -212,24 +208,10 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 1
+        m_CallState: 2
   OnPointerDragged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &222748435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 222748431}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 164c76b1a7b5c5241a95d541f23590ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotateSpeed: 30
-  rotation: {x: 0, y: 180, z: 0}
 --- !u!1 &1142054456
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +748,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 2d029f2a1321676428ce89872882c605, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 2d029f2a1321676428ce89872882c605, type: 3}
+      propertyPath: m_TagString
+      value: EditorOnly
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2d029f2a1321676428ce89872882c605, type: 3}
       propertyPath: m_LocalPosition.x

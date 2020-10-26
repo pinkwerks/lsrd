@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MatrixRotator : MonoBehaviour
 {
@@ -15,9 +13,6 @@ public class MatrixRotator : MonoBehaviour
         Quaternion rot = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
 
         Matrix4x4 m = Matrix4x4.TRS(Vector3.zero, rot, Vector3.one);
-        GetComponent<Kontroller>().SpatialMappingMaterial.SetMatrix("_Rotation", m);
-#if UNITY_EDITOR
-        //Debug.Log(m);
-#endif
+        GetComponent<Controller>().SpatialMappingMaterial.SetMatrix("_Rotation", m);
     }
 }
