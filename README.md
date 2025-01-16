@@ -1,3 +1,5 @@
+![image](Assets/Images/old~/Wide1240x600Logo.png)
+
 # lsrd - little surface reconstruction demo
 
 This project was used to build a surface-reconstruction visualization. Aka spatial-mapping for HoloLens.
